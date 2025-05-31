@@ -1,49 +1,44 @@
-import {nameInputCreate, urlInputCreate, modals} from '../index'
-import {createNewCard} from '../components/cards'
-
-function openModals(element) {
-    element.classList.add('popup_is-opened', 'popup_is-animated');
+function closeModalEsc (element) {
+    if (event.key === 'Escape') {
+        closeModal(element)
+    };
 };
 
+let keydownHandler;
+
+function openModal(element) {
+    element.classList.add('popup_is-animated');
+     setTimeout(() => {
+        element.classList.add('popup_is-opened');
+    }, 10);
+     keydownHandler = () => {
+        closeModalEsc(element);
+    };
+    document.addEventListener('keydown', keydownHandler);
+};
+
+const formElementCreate = document.querySelector('form[name="new-place"]');
+const nameInputCreate = formElementCreate.querySelector('.popup__input_type_card-name');
+const urlInputCreate = formElementCreate.querySelector('.popup__input_type_url');
+
+function clearFormFields() {
+    nameInputCreate.value = '';
+    urlInputCreate.value = '';
+}
 
 function closeModal(modal) {
     modal.classList.remove('popup_is-opened');
+    document.removeEventListener('keydown', keydownHandler);
+        clearFormFields();
+
+    setTimeout(() => {
+        modal.classList.remove('popup_is-animated');
+    }, 300);
 }
 
-function closeModalEsc () {
-    if (event.key === 'Escape') {
-        // Получаем все открытые модальные окна
-        const openedModals = document.querySelectorAll('.popup_is-opened');
-            
-        // Закрываем каждое открытое окно
-        openedModals.forEach((modal) => {
-            closeModal(modal);
-        });
-    }
-};
 
 
-function handleFormSubmitNewCards (evt){
-    evt.preventDefault();
-
-    const name = nameInputCreate.value;
-    const url = urlInputCreate.value;
-
-    if (name && url) {
-        createNewCard(name, url);
-        // Очищаем поля формы после добавления
-        nameInputCreate.value = '';
-        urlInputCreate.value = '';
-
-        const openedModals = document.querySelectorAll('.popup_is-opened');
-        
-        // Закрываем каждое открытое окно
-        openedModals.forEach((modal) => {
-            closeModal(modal);
-        });
-    }
-}
-
+const modals = document.querySelectorAll('.popup');  // Получаем массив всех модальных окон 
 
 function initModals() {
     modals.forEach((modal) => {
@@ -55,4 +50,4 @@ function initModals() {
     })
 };
 
-export {closeModal, handleFormSubmitNewCards, openModals, closeModalEsc, initModals};
+export {closeModal, openModal, initModals, clearFormFields};
