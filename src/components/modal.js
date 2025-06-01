@@ -5,7 +5,7 @@ function closeModalEsc (element) {
     };
 };
 
-function fun (evt) {
+function Listenerkeydown (evt) {
     closeModalEsc(evt)
 };
 
@@ -14,13 +14,13 @@ function openModal(element) {
      setTimeout(() => {
         element.classList.add('popup_is-opened');
     }, 10);
-    document.addEventListener('keydown', fun);
+    document.addEventListener('keydown', Listenerkeydown);
 };
 
 
 function closeModal(modal) {
     modal.classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', fun);
+    document.removeEventListener('keydown', Listenerkeydown);
     setTimeout(() => {
         modal.classList.remove('popup_is-animated');
     }, 300);
