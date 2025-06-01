@@ -10,12 +10,13 @@
 import './pages/index.css';
 import {initialCards} from './components/cards'
 import {createCard, deleteCard, addLike} from './components/card'
-import {closeModal, openModal, initModals, clearFormFields} from './components/modal'
+import {closeModal, openModal, initModals} from './components/modal'
+
+const popupTypeImage = document.querySelector('.popup_type_image');
+const popupContentContentImage = popupTypeImage.querySelector('.popup__content_content_image');
 
 
 function openImagePopup(cardElement) {
-      const popupTypeImage = document.querySelector('.popup_type_image');
-      const popupContentContentImage = popupTypeImage.querySelector('.popup__content_content_image');
       
       openModal(popupTypeImage);
       popupContentContentImage.querySelector('.popup__image').src = cardElement.querySelector('.card__image').src;
@@ -75,14 +76,20 @@ const formElementCreate = document.querySelector('form[name="new-place"]');
 const nameInputCreate = formElementCreate.querySelector('.popup__input_type_card-name');
 const urlInputCreate = formElementCreate.querySelector('.popup__input_type_url');
 
-
 const profileEditButton = document.querySelector('.profile__edit-button');
 const popupTypeEdit = document.querySelector('.popup_type_edit');
+
+
+function clearFormFields() {
+    formElementCreate.reset();
+}
+
 
 function fillFormFields () {
     nameInputDescriptionValue.value = profileTitle.textContent
     jobInputDescriptionValue.value = profileDescription.textContent
 }
+
 
 profileEditButton.addEventListener('click', () => {
     fillFormFields();
@@ -93,7 +100,7 @@ profileEditButton.addEventListener('click', () => {
 const profileAddButton = document.querySelector('.profile__add-button');
 const popupTypeNewCard = document.querySelector('.popup_type_new-card');
 
-profileAddButton.addEventListener('click', () => openModal(popupTypeNewCard));
+profileAddButton.addEventListener('click', () => openModal(popupTypeNewCard, clearFormFields()));
 
 
 const placesList = document.querySelector('.places__list');

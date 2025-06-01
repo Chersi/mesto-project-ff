@@ -1,36 +1,26 @@
 function closeModalEsc (element) {
     if (event.key === 'Escape') {
-        closeModal(element)
+        const openedModals = document.querySelector('.popup_is-opened'); 
+        closeModal(openedModals)
     };
 };
 
-let keydownHandler;
+function fun (evt) {
+    closeModalEsc(evt)
+};
 
 function openModal(element) {
     element.classList.add('popup_is-animated');
      setTimeout(() => {
         element.classList.add('popup_is-opened');
     }, 10);
-     keydownHandler = () => {
-        closeModalEsc(element);
-    };
-    document.addEventListener('keydown', keydownHandler);
+    document.addEventListener('keydown', fun);
 };
 
-const formElementCreate = document.querySelector('form[name="new-place"]');
-const nameInputCreate = formElementCreate.querySelector('.popup__input_type_card-name');
-const urlInputCreate = formElementCreate.querySelector('.popup__input_type_url');
-
-function clearFormFields() {
-    nameInputCreate.value = '';
-    urlInputCreate.value = '';
-}
 
 function closeModal(modal) {
     modal.classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', keydownHandler);
-        clearFormFields();
-
+    document.removeEventListener('keydown', fun);
     setTimeout(() => {
         modal.classList.remove('popup_is-animated');
     }, 300);
@@ -50,4 +40,4 @@ function initModals() {
     })
 };
 
-export {closeModal, openModal, initModals, clearFormFields};
+export {closeModal, openModal, initModals};

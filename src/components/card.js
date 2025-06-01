@@ -1,17 +1,3 @@
-import {openModal} from './modal'
-
-
-function openImagePopup(cardElement) {
-      const popupTypeImage = document.querySelector('.popup_type_image');
-      const popupContentContentImage = popupTypeImage.querySelector('.popup__content_content_image');
-      
-      openModal(popupTypeImage);
-      popupContentContentImage.querySelector('.popup__image').src = this.src;
-      popupContentContentImage.querySelector('.popup__caption').textContent = cardElement.querySelector('.card__title').textContent;
-      popupContentContentImage.querySelector('.popup__image').alt = cardData.name;
-};
-
-
 const cardTemplate = document.querySelector('#card-template').content;
 
 function createCard(cardData, deleteCard, addLike, openImagePopup) {
