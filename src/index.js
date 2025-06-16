@@ -181,7 +181,6 @@ Promise.all([userInformation(), addAllCards()])
     profileTitle.textContent = result[0].name;
     profileDescription.textContent = result[0].about;
     profileImage.style.backgroundImage = `url(${userAvatar})`;
-    console.log('result:', result);
     result[1].forEach((cardData) => {
       placesList.append(
         createCard(cardData, userId, deleteCard, toggleLike, openImagePopup)
