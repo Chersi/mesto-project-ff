@@ -5,30 +5,25 @@ function closeModalEsc (element) {
     };
 };
 
-function ListenerKeydown (evt) {
-    closeModalEsc(evt)
-};
 
 function openModal(element) {
     element.classList.add('popup_is-animated');
-     setTimeout(() => {
-        element.classList.add('popup_is-opened');
+        setTimeout(() => {
+            element.classList.add('popup_is-opened');
     }, 10);
-    document.addEventListener('keydown', ListenerKeydown);
+    document.addEventListener('keydown', closeModalEsc);
 };
-
 
 function closeModal(modal) {
     modal.classList.remove('popup_is-opened');
-    document.removeEventListener('keydown', ListenerKeydown);
+    document.removeEventListener('keydown', closeModalEsc);
     setTimeout(() => {
         modal.classList.remove('popup_is-animated');
     }, 300);
 }
 
-
-
-const modals = document.querySelectorAll('.popup');  // Получаем массив всех модальных окон 
+// Получаем массив всех модальных окон
+const modals = document.querySelectorAll('.popup'); 
 
 function initModals() {
     modals.forEach((modal) => {
