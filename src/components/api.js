@@ -14,7 +14,7 @@ export const userInformation = () => {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
-  .then((res) => result(res));
+  .then((res) => getresult(res));
 }
   
 
@@ -22,7 +22,7 @@ export const addAllCards = () => {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-  .then((res) => result(res));
+  .then((res) => getresult(res));
 }
 
 
@@ -35,7 +35,7 @@ export const saveUserInformation = (newProfile) => {
       about: newProfile.about,
     })
   })
-  .then((res) => result(res));
+  .then((res) => getresult(res));
 }
 
 
@@ -49,7 +49,7 @@ export const addCard = (newCard) => {
       like: newCard.like,
     })
   })
-  .then((res) => result(res));
+  .then((res) => getresult(res));
 }
 
 export const deleteCardRequest = (cardId) => {
@@ -57,7 +57,7 @@ export const deleteCardRequest = (cardId) => {
     method: 'DELETE',
     headers: config.headers
   })
-  .then((res) => result(res));
+  .then((res) => getresult(res));
 }
 
 
@@ -69,7 +69,7 @@ export const addLikeRequest = (cardId) => {
       _id: cardId,
     }),
   })
-  .then((res) => result(res));
+  .then((res) => getresult(res));
 }
 
 
@@ -78,7 +78,7 @@ export const deleteLikeRequest = (cardId) => {
     method: 'DELETE',
     headers: config.headers
   })
-  .then((res) => result(res));
+  .then((res) => getresult(res));
 }
 
 
@@ -90,11 +90,11 @@ export const newAvatar = (avatar) => {
       avatar: avatar.avatar,
     }),
   })
-  .then((res) => result(res));
+  .then((res) => getresult(res));
 }
 
 
-function result(res) {
+function getresult(res) {
   if (res.ok) {
     return res.json();
   }

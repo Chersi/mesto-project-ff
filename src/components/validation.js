@@ -1,14 +1,3 @@
-// Переменная, в которой объект настроек
-const validationObj = {
-    formSelector: '.popup__form',
-    inputSelector: '.popup__input',
-    submitButtonSelector: '.popup__button',
-    inactiveButtonClass: 'popup__button_inactive',
-    inputErrorClass: 'popup__input_type_error',
-    errorClass: 'popup__input-error_active'
-};
-
-
 // Функция, которая добавляет класс с ошибкой
 const showInputError = (formElement, inputElement, errorMessage, validationObj) => {
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`); 
@@ -19,6 +8,7 @@ const showInputError = (formElement, inputElement, errorMessage, validationObj) 
 
 // Функция, которая удаляет класс с ошибкой
 const hideInputError = (formElement, inputElement, validationObj) => {
+    inputElement.setCustomValidity("");
     const errorElement = formElement.querySelector(`.${inputElement.id}-error`); 
     inputElement.classList.remove(validationObj.inputErrorClass);
     errorElement.textContent = '';
@@ -26,7 +16,7 @@ const hideInputError = (formElement, inputElement, validationObj) => {
 };
 
 // Функция, которая проверяет валидность поля
-const isValid = (formElement, inputElement) => {
+const isValid = (formElement, inputElement, validationObj) => {
     if (inputElement.validity.patternMismatch) {
         inputElement.setCustomValidity(inputElement.dataset.errorMessage);
   } else {
@@ -54,7 +44,7 @@ const setEventListener = (formElement, validationObj) => {
     toggleButtonState(inputList, buttonElement, validationObj);
     inputList.forEach((inputElement) => {
         inputElement.addEventListener('input', () => {
-            isValid(formElement, inputElement)
+            isValid(formElement, inputElement, validationObj)
             toggleButtonState(inputList, buttonElement, validationObj)
         });
     });
@@ -90,4 +80,4 @@ const clearValidation = (formElement, validationObj) => {
 }
 
 
-export {enableValidation, validationObj, clearValidation};
+export {enableValidation, clearValidation};

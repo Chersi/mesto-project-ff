@@ -1,9 +1,6 @@
-import {deleteCardRequest, addLikeRequest, deleteLikeRequest} from '../api'
-import {openModal, closeModal} from './modal'
+import {addLikeRequest, deleteLikeRequest, deleteCardRequest} from './api'
 
 const cardTemplate = document.querySelector('#card-template').content;
-const popupAgreementDelete = document.querySelector('.popup_agreement-delete');
-const popupButtonDelete = document.querySelector('.popup__button-delete');
 
 function createCard(cardData, userId, deleteCard, toggleLike, openImagePopup) {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -18,22 +15,16 @@ function createCard(cardData, userId, deleteCard, toggleLike, openImagePopup) {
     cardLikeCounter.textContent = cardData.likes.length;
 
     if(userId === cardData.owner._id) {
-        buttonDelete.addEventListener('click', () => {
-            openModal(popupAgreementDelete); 
-        popupButtonDelete.addEventListener('click', () => {
-            deleteCard(cardElement, cardData._id);
-            closeModal(popupAgreementDelete);
-        });
-    })
+        buttonDelete.addEventListener('click', (evt) => {
+            deleteCard (cardElement, cardData._id)
+        })
     } else {
         buttonDelete.remove()
     };
     
-
     cardImage.addEventListener('click', () => {
-        openImagePopup(cardElement);
+        openImagePopup(cardData);
     });
-
 
     if(cardData.likes.some((like) => like._id === userId)) {
         cardLikeButton.classList.add('card__like-button_is-active');
@@ -45,16 +36,16 @@ function createCard(cardData, userId, deleteCard, toggleLike, openImagePopup) {
     return cardElement;
 }
 
+
 function deleteCard(card, cardId) {
-    return deleteCardRequest(cardId) 
+  return deleteCardRequest(cardId)
     .then((result) => {
-        card.remove();
+      card.remove();
     })
     .catch((err) => {
       console.log(err);
-    })
-};
-
+    });
+}
 
 function toggleLike (evt, cardId, cardLikeCounter) {
     const like = evt.classList.contains("card__like-button_is-active") ? deleteLikeRequest : addLikeRequest;

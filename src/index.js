@@ -10,21 +10,35 @@
 import './pages/index.css';
 import {createCard, deleteCard, toggleLike} from './components/card'
 import {closeModal, openModal, initModals} from './components/modal'
-import {enableValidation, validationObj, clearValidation} from './components/validation'
-import {userInformation, addAllCards, saveUserInformation, addCard, newAvatar} from './api'
+import {enableValidation, clearValidation} from './components/validation'
+import {userInformation, addAllCards, saveUserInformation, addCard, newAvatar, deleteCardRequest} from './components/api'
+
+
+// Переменная, в которой объект настроек
+const validationObj = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__button',
+    inactiveButtonClass: 'popup__button_inactive',
+    inputErrorClass: 'popup__input_type_error',
+    errorClass: 'popup__input-error_active'
+};
+
 
 const placesList = document.querySelector(".places__list");
 const popupTypeImage = document.querySelector('.popup_type_image');
-const popupContentImage = popupTypeImage.querySelector('.popup__content_content_image');
+const popupContentImage = document.querySelector('.popup__content_content_image');
+const popupImage = document.querySelector('.popup__image')
+const popupImageText = document.querySelector('.popup__caption')
 let userId = '';
 let userAvatar = "";
 
 //Функция открытия попапа карточки
-function openImagePopup(cardElement) {
-      openModal(popupTypeImage);
-      popupContentImage.querySelector('.popup__image').src = cardElement.querySelector('.card__image').src;
-      popupContentImage.querySelector('.popup__caption').textContent = cardElement.querySelector('.card__title').textContent;
-      popupContentImage.querySelector('.popup__image').alt = cardElement.querySelector('.card__title').textContent;
+function openImagePopup(card) {
+  popupImage.src = card.link;
+  popupImage.alt = card.name;
+  popupImageText.textContent = card.name;
+  openModal(popupTypeImage);
 };
 
 // Находим форму профиля и инпуты в ней
@@ -172,6 +186,7 @@ function loading (form, status) {
     button.textContent = 'Сохранить'
   }
 }
+
 
 // Передаём  промисы методу Promise.all
 Promise.all([userInformation(), addAllCards()])
