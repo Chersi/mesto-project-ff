@@ -8,7 +8,7 @@
 
 // @todo: Вывести карточки на страницу
 import './pages/index.css';
-import {createCard, toggleLike} from './components/card'
+import {createCard, toggleLike, cardID} from './components/card'
 import {closeModal, openModal, initModals} from './components/modal'
 import {enableValidation, clearValidation} from './components/validation'
 import {userInformation, addAllCards, saveUserInformation, addCard, newAvatar, deleteCardRequest} from './components/api'
@@ -30,7 +30,6 @@ const popupTypeImage = document.querySelector('.popup_type_image');
 const popupContentImage = document.querySelector('.popup__content_content_image');
 const popupImage = document.querySelector('.popup__image');
 const popupImageText = document.querySelector('.popup__caption');
-const popupAgreementDelete = document.querySelector('.popup_agreement-delete'); 
 const popupButtonDelete = document.querySelector('.popup__button-delete'); 
 let userId = '';
 let userAvatar = "";
@@ -189,16 +188,15 @@ function loading (form, status) {
   }
 }
 
-function deleteCard (cardElement) {
-  openModal(popupAgreementDelete);
-  popupButtonDelete.addEventListener('click', (evt) => {
-    submitDeleteCard(evt, cardElement);
-  });
-};
 
-function submitDeleteCard(evt, cardElement) {
+popupButtonDelete.addEventListener('submit', (evt) => {
+    deleteCard(evt);
+  });
+
+function deleteCard (evt) {
   evt.preventDefault();
-  deleteCardRequest(cardElement._id)
+  cardID;
+  deleteCardRequest(cardID)
   .then((result) => { 
     cardElement.remove(); 
     closeModal(popupAgreementDelete);
@@ -206,7 +204,7 @@ function submitDeleteCard(evt, cardElement) {
   .catch((err) => { 
     console.log(err); 
   }) 
-}; 
+};
 
 
 // Передаём  промисы методу Promise.all
