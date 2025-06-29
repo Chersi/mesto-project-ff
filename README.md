@@ -51,7 +51,8 @@
 
 :white_check_mark: Реализованна проверка ответа сервера на корректность проверкой "res.ok" в отдельной функции.
 
-:link: <u>**[Проект на GitHub](<https://chersi.github.io/mesto-project-ff/>)</u>**
+:link: <u>**[Проект на GitHub](https://github.com/Chersi/mesto-project-ff)</u>**  
+:link: <u>**[MESTO](https://chersi.github.io/mesto-project-ff/)</u>**
 
 ### :book: Выполнено в ходе обучения на курсе "Фулстек-разработчик"
 [![Баннер Яндекс Практикум](https://i.pinimg.com/736x/c7/a2/e1/c7a2e1cc33998b9baf5d974490086ee8.jpg "По ссылке все доступные курсы Практикума")](https://practicum.yandex.ru/referrals/?ref_code=gAAAAABoYQ_eKoertBLBPddzVr2ViPu-YV9FR0ddZZM0n9uiTm1YKWXpFJ77n6wvt4uQTR2iYDH7VLOVVE5jFruO987np6PxXw%3D%3D)
