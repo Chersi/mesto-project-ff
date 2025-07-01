@@ -1,7 +1,6 @@
 import {addLikeRequest, deleteLikeRequest, deleteCardRequest} from './api'
 
 const cardTemplate = document.querySelector('#card-template').content;
-let cardId = '';
 
 function createCard(cardData, userId, deleteCard, toggleLike, openImagePopup) {
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -17,9 +16,7 @@ function createCard(cardData, userId, deleteCard, toggleLike, openImagePopup) {
 
     if(userId === cardData.owner._id) {
         buttonDelete.addEventListener('click', () => {
-            deleteCard(cardElement);
-            cardId = cardData._id;
-            console.log(cardId);
+            deleteCard(cardElement, cardData._id);
         })
     } else {
         buttonDelete.remove()
@@ -63,4 +60,4 @@ function toggleLike (evt, cardId, cardLikeCounter) {
 }
 
 
-export {createCard, toggleLike, cardId};
+export {createCard, toggleLike};

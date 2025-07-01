@@ -8,7 +8,7 @@
 
 // @todo: Вывести карточки на страницу
 import './pages/index.css';
-import {createCard, toggleLike, cardId} from './components/card'
+import {createCard, toggleLike} from './components/card'
 import {closeModal, openModal, initModals} from './components/modal'
 import {enableValidation, clearValidation} from './components/validation'
 import {userInformation, addAllCards, saveUserInformation, addCard, newAvatar, deleteCardRequest} from './components/api'
@@ -29,9 +29,9 @@ const placesList = document.querySelector(".places__list");
 const popupTypeImage = document.querySelector('.popup_type_image');
 const popupContentImage = document.querySelector('.popup__content_content_image');
 const popupImage = document.querySelector('.popup__image');
-const popupImageText = document.querySelector('.popup__caption');
-const popupButtonDelete = document.querySelector('.popup__button-delete'); 
+const popupImageText = document.querySelector('.popup__caption'); 
 const popupAgreementDelete = document.querySelector('.popup_agreement-delete'); 
+let idCard = '';
 let userId = '';
 let userAvatar = '';
 
@@ -189,18 +189,21 @@ function loading (form, status) {
   }
 }
 
+const agreementDelete = document.querySelector('form[name="agreement-delete"]');
 
 function deleteCard(cardElement, cardId) {
+  idCard = cardId;
   openModal(popupAgreementDelete);
-  popupButtonDelete.addEventListener('submit', (evt) => {
-    submitDeleteCard(evt, cardElement, cardId);
+  agreementDelete.addEventListener('submit', (evt) => {
+    submitDeleteCard(evt, cardElement, idCard);
   })
 }
 
 
-function submitDeleteCard (evt, cardElement, cardId) {  
+function submitDeleteCard (evt, cardElement, idCard) {  
   evt.preventDefault(); 
-  return deleteCardRequest(cardId)
+  console.log(idCard)
+  return deleteCardRequest(idCard)
   .then((result) => { 
     cardElement.remove(); 
     closeModal(popupAgreementDelete);
