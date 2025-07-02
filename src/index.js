@@ -31,6 +31,7 @@ const popupContentImage = document.querySelector('.popup__content_content_image'
 const popupImage = document.querySelector('.popup__image');
 const popupImageText = document.querySelector('.popup__caption'); 
 const popupAgreementDelete = document.querySelector('.popup_agreement-delete'); 
+let card = '';
 let idCard = '';
 let userId = '';
 let userAvatar = '';
@@ -193,19 +194,20 @@ const agreementDelete = document.querySelector('form[name="agreement-delete"]');
 
 function deleteCard(cardElement, cardId) {
   idCard = cardId;
+  card = cardElement;
   openModal(popupAgreementDelete);
-  agreementDelete.addEventListener('submit', (evt) => {
-    submitDeleteCard(evt, cardElement, idCard);
-  })
 }
 
+agreementDelete.addEventListener('submit', (evt) => {
+    submitDeleteCard(evt, card, idCard);
+});
 
-function submitDeleteCard (evt, cardElement, idCard) {  
+function submitDeleteCard (evt, card, idCard) {  
   evt.preventDefault(); 
   console.log(idCard)
   return deleteCardRequest(idCard)
   .then((result) => { 
-    cardElement.remove(); 
+    card.remove(); 
     closeModal(popupAgreementDelete);
   }) 
   .catch((err) => { 
